@@ -40,13 +40,15 @@ class AuthController extends Controller
             'fName' => 'required|string',
             'lName' => 'required|string',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string'
+            'password' => 'required|string',
+            'user_type' => 'required|string'
         ]);
         $user = new User;
         $user->first_name = $request->fName;
         $user->last_name = $request->lName;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
+        $user->type = $request->user_type;
         $user->save();
         return response()->json([
             'message' => 'Successfully created user!'
